@@ -1222,6 +1222,44 @@
 
   </footer>
 
+
+<script>
+(function () {
+  function removerImagemQuebrada(img) {
+    const blocos = [
+      '.hero-title-wrap',
+      '.story-card-image',
+      '.logo-frame',
+      '.mascote-main-wrap',
+      '.mascote-card',
+      '.simbolo-item',
+      '.mockup-card',
+      '.cardapio-item',
+      '.footer-character-wrap'
+    ];
+
+    const bloco = blocos.map(sel => img.closest(sel)).find(Boolean);
+
+    if (bloco) {
+      bloco.remove();
+    } else {
+      img.remove();
+    }
+  }
+
+  document.querySelectorAll('img').forEach(function (img) {
+    img.addEventListener('error', function () {
+      removerImagemQuebrada(this);
+    });
+
+    // Se a imagem já tiver falhado antes do listener ser registrado.
+    if (img.complete && img.naturalWidth === 0) {
+      removerImagemQuebrada(img);
+    }
+  });
+})();
+</script>
+
   <script src="javaScript/script.js"></script>
 
 </body>
